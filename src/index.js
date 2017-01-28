@@ -21,18 +21,23 @@ class App extends Component {
             selectedVideo: null
         };
         
-        YTSearch({key: API_KEY, term: 'iphone'}, (videos) => {
+        this.videoSearch('clash royale')
+            //if the key and value have the same name you can just pass one word            
+    }
+
+    videoSearch(term) {
+        YTSearch({key: API_KEY, term: term}, (videos) => {
             this.setState({
                 videos: videos,
                 selectedVideo: videos[0]
             });
         });
-            //if the key and value have the same name you can just pass one word            
     }
+
     render() {
         return ( 
             <div>
-                < SearchBar />
+                < SearchBar onSearchTermChange={term => this.videoSearch(term)}/>
                 < VideoDetail video={this.state.selectedVideo } />
                 < VideoList 
                     onVideoSelect = {selectedVideo => this.setState({selectedVideo})}
