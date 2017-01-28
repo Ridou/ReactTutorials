@@ -16,10 +16,16 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { videos: [] };
+        this.state = {
+            videos: [],
+            selectedVideo: null
+        };
         
         YTSearch({key: API_KEY, term: 'iphone'}, (videos) => {
-            this.setState({videos});
+            this.setState({
+                videos: videos,
+                selectedVideo: videos[0]
+            });
         });
             //if the key and value have the same name you can just pass one word            
     }
@@ -27,7 +33,7 @@ class App extends Component {
         return ( 
             <div>
                 < SearchBar />
-                < VideoDetail video={this.state.videos[0] } />
+                < VideoDetail video={this.state.selectedVideo } />
                 < VideoList videos={this.state.videos} /> 
             </div>
         );
